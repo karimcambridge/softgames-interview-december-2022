@@ -52,4 +52,8 @@ const randomEmoji = (options: any) => {
 	return result;
 };
 
-export { requestFullScreen, preloadGameData, easeInOutQuad, randomEmoji };
+const getRandomInt = (min = 0, max = 100): number => {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export { requestFullScreen, preloadGameData, easeInOutQuad, randomEmoji, getRandomInt };

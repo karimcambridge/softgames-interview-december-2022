@@ -1,147 +1,33 @@
-import { ParticleContainer, Texture } from 'pixi.js';
-import { Emitter } from '@pixi/particle-emitter';
-//import * as particleSettings from './emitter.json';
+import { Application, utils } from 'pixi.js';
+import Fire from './fire';
 
-class ParticleSystem extends ParticleContainer {
-	_texture: Texture;
-	_particles: Emitter[] = [];
-	_particleContainer: ParticleContainer;
+class ParticleSystem {
+	_app: Application;
+	_max = 10;
+	fires: Fire[] = [];
 
-	constructor(textureFile: string, max = 1) {
-		super();
-		this._texture = Texture.from(textureFile);
+	constructor(app: Application, max = 10) {
+		this._app = app;
+		this._max = max;
+	}
 
-		this._particleContainer = new ParticleContainer();
-		this._particleContainer.position.set(0);
-		for(let i = 0; i < ((max > 10) ? 10 : max); ++i) {
-			const emitter = new Emitter(this._particleContainer, {
-				lifetime: {
-					min: 0.5,
-					max: 0.5
-				},
-				frequency: 0.008,
-				spawnChance: 1,
-				particlesPerWave: 1,
-				emitterLifetime: 0.31,
-				maxParticles: 1000,
-				pos: {
-					x: 0,
-					y: 0
-				},
-				addAtBack: false,
-				behaviors: [
-					{
-						type: 'alpha',
-						config: {
-							alpha: {
-								list: [
-									{
-										value: 0.8,
-										time: 0
-									},
-									{
-										value: 0.1,
-										time: 1
-									}
-								],
-							},
-						}
-					},
-					{
-						type: 'scale',
-						config: {
-							scale: {
-								list: [
-									{
-										value: 1,
-										time: 0
-									},
-									{
-										value: 0.3,
-										time: 1
-									}
-								],
-							},
-						}
-					},
-					{
-						type: 'color',
-						config: {
-							color: {
-								list: [
-									{
-										value: 'fb1010',
-										time: 0
-									},
-									{
-										value: 'f5b830',
-										time: 1
-									}
-								],
-							},
-						}
-					},
-					{
-						type: 'moveSpeed',
-						config: {
-							speed: {
-								list: [
-									{
-										value: 200,
-										time: 0
-									},
-									{
-										value: 100,
-										time: 1
-									}
-								],
-								isStepped: false
-							},
-						}
-					},
-					{
-						type: 'rotationStatic',
-						config: {
-							min: 0,
-							max: 360
-						}
-					},
-					{
-						type: 'spawnShape',
-						config: {
-							type: 'torus',
-							data: {
-								x: 0,
-								y: 0,
-								r: 10
-							}
-						}
-					},
-					{
-						type: 'textureSingle',
-						config: {
-							texture: Texture.from('fire2.png')
-						}
-					}
-				],
+	start() {
+		console.log('[fire]: start');
+		for(let i = 0; i < this._max; ++i) {
+			const fire = new Fire(this._app, {
+				x: Math.random() * (window.innerWidth * (utils.isMobile.any ? 0.75 : 0.85)),
+				y: Math.random() * (window.innerHeight * (utils.isMobile.any ? 0.75 : 0.85)),
 			});
-
-			emitter.autoUpdate = true;
-			emitter.emit = true;
-
-			this._particles.push(emitter);
+			this.fires.push(fire);
 		}
 	}
 
-	start(stage: any) {
-		stage.addChild(this._particleContainer);
-		for(const emitter of this._particles) {
-			emitter.parent = this._particleContainer;
+	stop() {
+		for(const fire of this.fires) {
+			fire.stop();
 		}
-	}
-
-	stop(stage: any) {
-		stage.removeChild(this._particleContainer);
+		this.fires.length = 0;
+		console.log('[fire]: end');
 	}
 }
 

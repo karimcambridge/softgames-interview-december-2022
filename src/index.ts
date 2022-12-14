@@ -18,49 +18,45 @@ const
 	settings = Object.freeze({
 		cards: 144,
 	}),
-	displayOption = <HTMLOptionElement>document.getElementById('display'),
+	options = {
+		cards: <HTMLInputElement>document.getElementById('cards'),
+		mixed: <HTMLInputElement>document.getElementById('mixed'),
+		fire: <HTMLInputElement>document.getElementById('fire'),
+	},
 	backDrop = document.getElementById('pixi-backdrop'),
 	elements = {
 		fps: new FPSCounter(),
 		cardStack: new CardStack(app, settings.cards),
 		textWithImages: new TextWithImages(app),
-		particles: new ParticleSystem('fire2.png'),
+		particles: new ParticleSystem(app),
 	}
-;
-
-let
-	lastDisplay = displayOption?.value
 ;
 
 elements.fps.start(app);
 
-const onDisplayChange = () => {
-	switch(lastDisplay) {
-		case 'cards':
-			elements.cardStack.stop();
-			break;
-		case 'mixed':
-			elements.textWithImages.stop();
-			break;
-		case 'fire':
-			elements.particles.stop(app.stage);
-			break;
+options.cards.onclick = () => {
+	if(options.cards.checked) {
+		elements.cardStack.start();
+	} else {
+		elements.cardStack.stop();
 	}
-	switch(displayOption.value) {
-		case 'cards':
-			elements.cardStack.start();
-			break;
-		case 'mixed':
-			elements.textWithImages.start();
-			break;
-		case 'fire':
-			elements.particles.start(app.stage);
-			break;
-	}
-	lastDisplay = displayOption.value;
 };
-displayOption.onchange = onDisplayChange;
-onDisplayChange();
+
+options.mixed.onclick = () => {
+	if(options.mixed.checked) {
+		elements.textWithImages.start();
+	} else {
+		elements.textWithImages.stop();
+	}
+};
+
+options.fire.onclick = () => {
+	if(options.fire.checked) {
+		elements.particles.start();
+	} else {
+		elements.particles.stop();
+	}
+};
 
 setTimeout(() => requestFullScreen(document.body), 500); // Make the body go full screen.
 
