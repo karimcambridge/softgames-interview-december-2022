@@ -1,6 +1,12 @@
 import { Application, utils } from 'pixi.js';
 import Fire from './fire';
 
+/*
+ * Particles - make a demo that shows an awesome fire effect.
+ * Please keep number of images low (max 10 sprites on screen at once).
+ * Feel free to use existing libraries how you would use them in a real project.
+ */
+
 class ParticleSystem {
 	_app: Application;
 	_max = 10;
@@ -8,11 +14,10 @@ class ParticleSystem {
 
 	constructor(app: Application, max = 10) {
 		this._app = app;
-		this._max = max;
+		this._max = (max > 10) ? 10 : max;
 	}
 
 	start() {
-		console.log('[fire]: start');
 		for(let i = 0; i < this._max; ++i) {
 			const fire = new Fire(this._app, {
 				x: Math.random() * (window.innerWidth * (utils.isMobile.any ? 0.75 : 0.85)),
@@ -20,6 +25,7 @@ class ParticleSystem {
 			});
 			this.fires.push(fire);
 		}
+		console.log('[fire]: start');
 	}
 
 	stop() {

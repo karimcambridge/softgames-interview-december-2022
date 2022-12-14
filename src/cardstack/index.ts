@@ -9,6 +9,7 @@ import { easeInOutQuad } from '../utils';
  * So at the end of whole process you should have reversed stack.
  * Display number of fps in left top corner and make sure, that this demo runs well on mobile devices.
  */
+
 const
 	settings = Object.freeze({
 		positionOffset: 0.05,
