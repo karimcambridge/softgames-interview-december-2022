@@ -9,8 +9,12 @@
     "build-only": "webpack --mode=production",
     "clean": "rimraf dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
+  "url": "git+https://github.com/karimcambridge/softgames-interview-december-2022.git",
+  "homepage": "https://karimcambridge.github.io/softgames-interview-december-2022",
   "author": "Karim Cambridge <karimcambridge@gmail.com>",
   "license": "Unlicensed",
   "dependencies": {
@@ -23,6 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "copy-webpack-plugin": "^10.2.4",
     "eslint": "^8.29.0",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "rimraf": "^3.0.2",
     "terser-webpack-plugin": "^5.3.6",
