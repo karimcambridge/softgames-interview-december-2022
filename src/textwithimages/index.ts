@@ -1,4 +1,4 @@
-import { Application, Container, Text, utils } from 'pixi.js';
+import { Application, Text, utils } from 'pixi.js';
 import randomWords from 'random-words';
 import { easeInOutQuad, randomEmoji } from '../utils';
 
@@ -10,22 +10,15 @@ import { easeInOutQuad, randomEmoji } from '../utils';
 */
 
 class TextWithImages {
-	_app: Application;
-	_container: Container;
-	_interval: any;
-	_tweeners: any[] = [];
+	private _app: Application;
+	private _interval: any;
+	private _tweeners: any[] = [];
 
 	constructor(app: any) {
 		this._app = app;
-		this._container = new Container();
 	}
 
-	start(): void {
-		this._interval = setInterval(this.generateTextWithImage, 1000);
-		console.log('[textwithimages]: start');
-	}
-
-	generateTextWithImage = () => {
+	private generateTextWithImage = () => {
 		const
 			text = randomWords({ exactly: Math.floor(Math.random() * 3) + 1, join: ' ' }) + ' ' + randomEmoji({ count: 1 }),
 			movingText = new Text(text, {
@@ -67,7 +60,12 @@ class TextWithImages {
 		this._app.ticker.add(tweener);
 	};
 
-	stop(): void {
+	public start(): void {
+		this._interval = setInterval(this.generateTextWithImage, 1000);
+		console.log('[textwithimages]: start');
+	}
+
+	public stop(): void {
 		console.log('[textwithimages]: end');
 		clearInterval(this._interval);
 	}

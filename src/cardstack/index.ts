@@ -17,19 +17,19 @@ const
 ;
 
 class CardStack {
-	_app: Application;
-	_texture!: Texture;
-	_spriteCount = 0;
-	_stacks: {
+	private _app: Application;
+	private _texture!: Texture;
+	private _spriteCount = 0;
+	private _stacks: {
 		left: Sprite[], right: Sprite[],
 	} = {
 		left: [], right: [],
 	};
-	_interval: any;
-	_tweeners: any[] = [];
+	private _interval: any;
+	private _tweeners: any[] = [];
 
-	_stacksContainer!: Container;
-	_processingContainer!: Container;
+	private _stacksContainer!: Container;
+	private _processingContainer!: Container;
 
 	constructor(app: Application, spriteCount: number, textureFile = 'pokemon_card_back.png') {
 		this._app = app;
@@ -37,7 +37,7 @@ class CardStack {
 		this.loadTexture(textureFile);
 	}
 
-	getCardPosition = (side: CardPositionSide) => {
+	private getCardPosition = (side: CardPositionSide) => {
 		const
 			x = (side === CardPositionSide.left) ? this._app.screen.width * 0.25 : this._app.screen.width * 0.75,
 			y = this._app.screen.height * 0.5,
@@ -46,13 +46,13 @@ class CardStack {
 		return { x: x + displacement, y: y + displacement };
 	};
 
-	loadTexture(textureFile: string) {
+	private loadTexture(textureFile: string) {
 		if(!this._texture) {
 			this._texture = Texture.from(textureFile);
 		}
 	}
 
-	createStackOfSprites(spriteCount: number): void {
+	private createStackOfSprites(spriteCount: number): void {
 		this._stacksContainer = new Container();
 		this._processingContainer = new Container();
 		this._app.stage.addChild(this._stacksContainer);
@@ -80,7 +80,7 @@ class CardStack {
 		return this._stacks.left?.pop();
 	}
 
-	moveCardFromLeftToRight(): any {
+	private moveCardFromLeftToRight(): any {
 		const
 			card = this.topLeftCard
 		;
@@ -96,13 +96,7 @@ class CardStack {
 		return null;
 	}
 
-	start(): void {
-		this.createStackOfSprites(this._spriteCount);
-		this._interval = setInterval(this.processCardMove, 1000);
-		console.log('[card stack]: start');
-	}
-
-	processCardMove = (): void => {
+	private processCardMove = (): void => {
 		const
 			cardData = this.moveCardFromLeftToRight()
 		;
@@ -145,11 +139,17 @@ class CardStack {
 		}
 	};
 
-	endMoving(): void {
+	private endMoving(): void {
 		clearInterval(this._interval);
 	}
 
-	stop(): void {
+	public start(): void {
+		this.createStackOfSprites(this._spriteCount);
+		this._interval = setInterval(this.processCardMove, 1000);
+		console.log('[card stack]: start');
+	}
+
+	public stop(): void {
 		this.endMoving();
 		this._app.stage.removeChild(this._stacksContainer);
 		this._app.stage.removeChild(this._processingContainer);

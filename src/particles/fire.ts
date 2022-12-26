@@ -3,12 +3,12 @@ import { easeInOutQuad } from '../utils';
 import Spark from './spark';
 
 class Fire {
-	_app: Application;
-	_particles: Spark[] = [];
-	_interval: any;
-	_position: { x: number; y: number; } = { x: window.innerWidth, y: window.innerHeight };
-	_tweeners: any[] = [];
-	_sprite: Sprite;
+	private _app: Application;
+	private _particles: Spark[] = [];
+	private _interval: any;
+	private _position: { x: number; y: number; } = { x: window.innerWidth, y: window.innerHeight };
+	private _tweeners: any[] = [];
+	private _sprite: Sprite;
 
 	constructor(app: any, position: { x: number; y: number; }) {
 		this._app = app;
@@ -24,7 +24,7 @@ class Fire {
 		this._interval = setInterval(this.sparkle, 1000);
 	}
 
-	sparkle = () => {
+	private sparkle = () => {
 		const
 			spark = new Spark(this._position),
 			startTime = Date.now()
@@ -53,7 +53,7 @@ class Fire {
 		this._app.ticker.add(tweener);
 	};
 
-	stop() {
+	public stop() {
 		if(this._interval) {
 			clearInterval(this._interval);
 			this._interval = null;

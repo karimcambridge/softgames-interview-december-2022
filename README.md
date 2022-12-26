@@ -15,7 +15,6 @@
 - Validity checks, uh, there is like barely any but it's an interview right?
 - Interfacing & typings - Definitely slacked on those. Could've thrown in a decorator or 2.
 
-
 **The following commands are available:**
 
 | Command                       | Description                                     |
@@ -26,3 +25,7 @@
 | `npm run clean`               | Clean the bundle folder (remove dist)           |
 | `npm run predeploy`           | Setup deployment for github pages               |
 | `npm run deploy`              | Deploy to github pages                          |
+
+**Live View**
+
+https://karimcambridge.com/softgames-interview-december-2022/

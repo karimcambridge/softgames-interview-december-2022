@@ -8,31 +8,31 @@ import Fire from './fire';
  */
 
 class ParticleSystem {
-	_app: Application;
-	_max = 10;
-	fires: Fire[] = [];
+	private _app: Application;
+	private _max = 10;
+	private _fires: Fire[] = [];
 
 	constructor(app: Application, max = 10) {
 		this._app = app;
 		this._max = (max > 10) ? 10 : max;
 	}
 
-	start() {
+	public start() {
 		for(let i = 0; i < this._max; ++i) {
 			const fire = new Fire(this._app, {
 				x: Math.random() * (window.innerWidth * (utils.isMobile.any ? 0.75 : 0.85)),
 				y: Math.random() * (window.innerHeight * (utils.isMobile.any ? 0.75 : 0.85)),
 			});
-			this.fires.push(fire);
+			this._fires.push(fire);
 		}
 		console.log('[fire]: start');
 	}
 
-	stop() {
-		for(const fire of this.fires) {
+	public stop() {
+		for(const fire of this._fires) {
 			fire.stop();
 		}
-		this.fires.length = 0;
+		this._fires.length = 0;
 		console.log('[fire]: end');
 	}
 }

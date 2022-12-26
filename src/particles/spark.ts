@@ -2,8 +2,8 @@ import { Graphics } from 'pixi.js';
 import { getRandomInt } from '../utils';
 
 class Spark {
-	_particle: Graphics;
-	_positions: { startY: number; endY: number; } = { startY: 0, endY: 0 };
+	private _particle: Graphics;
+	private _positions: { startY: number; endY: number; } = { startY: 0, endY: 0 };
 
 	constructor(position: { x: number; y: number; }, minOffsetFromFire: any = { x: 40, y: 35 }) {
 		this._particle = new Graphics();
