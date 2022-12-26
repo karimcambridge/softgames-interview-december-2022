@@ -26,3 +26,18 @@
 | `npm run clean`               | Clean the bundle folder (remove dist)           |
 | `npm run predeploy`           | Setup deployment for github pages               |
 | `npm run deploy`              | Deploy to github pages                          |
+
+**Results**
+
+___The good___
+
+- code is fairly clean, demonstrates skill-set.
+- some interesting code for handling tweens / animations.
+
+___Not that good___
+
+- _ for private variables with No use of private key word. Wether you like this _ convention or not, the private / protected access modifiers should have been used.
+- Text task is not implemented correctly in our opinion. It just adds a random image at the end of some text block. no markup, no wrapping. Also not split to a component.
+- Animation is done by adding some animation function to the ticker which is interesting, but this was not split off to some separate utility to manage, it is just added inline in each index.
+- Card task also lacks any real code structure.
+- The major issue being we felt code was not broken up enough. Although some level of skill was demonstrated.
